@@ -24,7 +24,7 @@ namespace BookStorePOS
             {
                 Name = "Harry Potter",
                 ISBN = 222,
-                Author = "JK Rowling",
+                Author = "J K Rowling",
                 Quantity = 20,
                 UnitPrice = 10
             };
