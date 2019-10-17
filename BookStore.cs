@@ -2,29 +2,45 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml;
 
 namespace BookStorePOS
 {
-    public class BookStore
+    public static class BookStore
     {
-        public Book[] books { get; set; }
-        public int NumberOfBooks = 0;
-        
-        public BookStore()
+        private static List<Book> books = new List<Book>();
+        public static Book AddNewBook(String name, String author, int quantity, Decimal unitprice, BookGenre genre)
         {
-            books = new Book[100];
-        }
-        public void AddBookToStore(Book newBook)
-        {
-            books[NumberOfBooks] = newBook;
-            NumberOfBooks++;
-        }
-        public void PrintAllBooks()
-        {
-            for (int i = 0; i < NumberOfBooks; i++)
+            var book = new Book
             {
-                Console.WriteLine(books[i].Name);
-            }
+                Name = name,
+                Author = author,
+                Quantity = quantity,
+                UnitPrice = unitprice,
+                Genre = genre,
+            };
+            books.Add(book);
+            Console.WriteLine("Book added successfully.\n");
+            return book;
+
+
         }
+        public static void PrintAllBooks()
+        {
+            Console.WriteLine("The book store has the following books:");
+            foreach (var book in books)
+            {
+                book.DisplayBookInfo();
+            }
+            Console.WriteLine("-------");
+        }
+
+        //public void PrintAllBooks()
+        //{
+        //    for (int i = 0; i < NumberOfBooks; i++)
+        //    {
+        //        Console.WriteLine(books[i].Name);
+        //    }
+        //}
     }
 }

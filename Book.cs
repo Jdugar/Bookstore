@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BookStorePOS
 {
-    enum BookGenre
+    public enum BookGenre
     {
         Fiction,
         NonFiction,
@@ -16,12 +16,19 @@ namespace BookStorePOS
     };
     public class Book
     {
+        private static int LastISBNNo = 0;
         public string Name { get; set; }
         public int ISBN { get; set; }
         public string Author { get; set; }
         public int Quantity { get; set; }
-        public int UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
+        public BookGenre Genre { get; set; }
+
+        public Book()
+        {
+            ISBN = ++LastISBNNo;
+        }
         public void DisplayBookInfo()
         {
             Console.WriteLine($"" +
@@ -32,6 +39,6 @@ namespace BookStorePOS
                $"Unit price: {UnitPrice}");
         }
 
-                      
+
     }
 }
