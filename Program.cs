@@ -16,27 +16,29 @@ namespace BookStorePOS
                 Console.WriteLine("---------------------------");
                 Console.WriteLine("Enter A to Add new book to Inventory");
                 Console.WriteLine("Enter P to Print all books in inventory");
+                Console.WriteLine("Enter 3 to update book Inventory" );
+                Console.WriteLine("Enter 4 to selling Book");
                 Console.WriteLine("E. Exit");
                 Console.WriteLine("----------------------------");
                 var input = Console.ReadLine();
                 switch (input)
                 {
                     case "A":
-                        Console.WriteLine("Adding new book");
-                        Console.Write("Enter Book Name: ");
+                        Console.Write("Adding new book");
+                        Console.Write("Enter Book Name:");
                         var bookname = Console.ReadLine();
-                        Console.Write("Enter Author Name: ");
+                        Console.Write("Enter Author Name:");
                         var author = Console.ReadLine();
-                        Console.WriteLine("Enter BookGenre: ");
+                        Console.Write("Enter BookGenre:");
                         var genres = Enum.GetNames(typeof(BookGenre));
                         for (int i = 0; i < genres.Length; i++)
                         {
                             Console.WriteLine($"{i}. {genres[i]}");
                         }
                         var genre = Enum.Parse<BookGenre>(Console.ReadLine());
-                        Console.WriteLine("Quantity");
+                        Console.Write("Quantity:");
                         var quantity = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Price per unit");
+                        Console.Write("Price per unit:");
                         var unitprice = Convert.ToInt32(Console.ReadLine());
                                     
 
@@ -44,6 +46,14 @@ namespace BookStorePOS
                         
 
 
+                        break;
+                    case "3":
+                        Console.Write("Enter the Book name to update the Inventory:");
+                        var book = Console.ReadLine();
+                        Console.Write("enter the qty:");
+                        var qty = Convert.ToInt32(Console.ReadLine());
+                        BookStore.updateInventory(book,qty);
+                        Console.Write("Book Inventory updated!");
                         break;
                     case "P":
                         BookStore.PrintAllBooks();

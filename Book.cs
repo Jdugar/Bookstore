@@ -29,14 +29,23 @@ namespace BookStorePOS
         {
             ISBN = ++LastISBNNo;
         }
+        public void UpdateInventory(int qty)
+        {
+            Quantity += qty;
+        }
+        public void Booksold(int qty)
+        {
+            Quantity -= qty;
+        }
         public void DisplayBookInfo()
         {
             Console.WriteLine($"" +
-               $"Book Name: {Name},\n" +
-               $"ISBN: {ISBN},\n" +
-               $"Author: {Author},\n" +
-               $"Qty: {Quantity},\n" +
-               $"Unit price: {UnitPrice}");
+               $"Book Name:{Name},  " +
+               $"ISBN:{ISBN}," +
+               $"Author:{Author}," +
+               $"Qty:" +
+               $"{Quantity}," +
+               $"Unit price:{UnitPrice}");
         }
 
 

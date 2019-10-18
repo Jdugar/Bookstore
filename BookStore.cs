@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
@@ -34,13 +36,31 @@ namespace BookStorePOS
             }
             Console.WriteLine("-------");
         }
-
-        //public void PrintAllBooks()
+        //public static IEnumerable<Book>GetBookQTYbyName(string BookName, int qty)
         //{
-        //    for (int i = 0; i < NumberOfBooks; i++)
-        //    {
-        //        Console.WriteLine(books[i].Name);
-        //    }
+        // var book=books.Where(a => a.Name == BookName);
+        //book.UpdateInventory(qty);
+
         //}
+        public static void updateInventory(String bookname, int qty)
+        {
+            var book = books.SingleOrDefault(a => a.Name == bookname);
+            if (book == null)
+            {
+                Console.WriteLine("Please add the qty");
+            }
+            book.UpdateInventory(qty);
+
+
+            //public void PrintAllBooks()
+            //{
+            //    for (int i = 0; i < NumberOfBooks; i++)
+            //    {
+            //        Console.WriteLine(books[i].Name);
+            //    }
+            //}
+        }
     }
 }
+
+        
