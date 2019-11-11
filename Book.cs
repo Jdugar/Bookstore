@@ -16,20 +16,23 @@ namespace BookStorePOS
     };
     public class Book
     {
-        private static int LastISBNNo = 0;
+       
         public string Name { get; set; }
-        public int ISBN { get; set; }
+        public int BookId { get; set; }
+
         public string Author { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
 
+        public  int ISBNNO  { get; set; }
+
         public BookGenre Genre { get; set; }
 
-        public Book()
-        {
-            ISBN = ++LastISBNNo;
-        }
-        public void UpdateInventory(int qty)
+       // public Book()
+       // {
+            
+     //   }
+        public void AddInventory(int qty)
         {
             Quantity += qty;
         }
@@ -40,8 +43,9 @@ namespace BookStorePOS
         public void DisplayBookInfo()
         {
             Console.WriteLine($"" +
+               $"Book ID:{BookId},"+
                $"Book Name:{Name},  " +
-               $"ISBN:{ISBN}," +
+               $"ISBN:{ISBNNO}," +
                $"Author:{Author}," +
                $"Qty:" +
                $"{Quantity}," +

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Bookstore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
@@ -10,8 +12,9 @@ namespace BookStorePOS
 {
     public static class BookStore
     {
-        private static List<Book> books = new List<Book>();
-        public static Book AddNewBook(String name, String author, int quantity, Decimal unitprice, BookGenre genre)
+        private static BookContext db = new BookContext();
+
+        public static Book AddNewBook(String name, String author, int quantity, Decimal unitprice, BookGenre genre, int ISBNNo)
         {
             var book = new Book
             {
@@ -20,17 +23,17 @@ namespace BookStorePOS
                 Quantity = quantity,
                 UnitPrice = unitprice,
                 Genre = genre,
+                ISBNNO = ISBNNo,
             };
-            books.Add(book);
+            db.books.Add(book);
+            db.SaveChanges();
             Console.WriteLine("Book added successfully.\n");
             return book;
-
-
         }
         public static void PrintAllBooks()
         {
             Console.WriteLine("The book store has the following books:");
-            foreach (var book in books)
+            foreach (var book in db.books)
             {
                 book.DisplayBookInfo();
             }
@@ -42,14 +45,51 @@ namespace BookStorePOS
         //book.UpdateInventory(qty);
 
         //}
-        public static void updateInventory(String bookname, int qty)
+        public static void AddInventory(String bookname, int qty)
         {
-            var book = books.SingleOrDefault(a => a.Name == bookname);
+            var book = db.books.SingleOrDefault(a => a.Name == bookname);
             if (book == null)
             {
-                Console.WriteLine("Please add the qty");
+                return;
             }
-            book.UpdateInventory(qty);
+            book.AddInventory(qty);
+
+            var booktransaction = new BookTransaction
+            {
+                TransactionDate = DateTime.Now,
+                TransactionType = TypesofTransaction.purchase,
+                Bookname = bookname,
+                Quantity = qty,
+                updatedQuantity = book.Quantity,
+               bookid = book.BookId,
+
+
+            };
+            db.booktransactions.Add(booktransaction);
+            db.SaveChanges();
+        }
+        public static void Booksold(String bookname, int qty)
+        {
+            var book = db.books.SingleOrDefault(a => a.Name == bookname);
+            if (book == null)
+            {
+                return;
+            }
+            book.Booksold(qty);
+            {
+                var booktransaction1= new BookTransaction
+                {
+
+                      TransactionDate = DateTime.Now,
+                TransactionType = TypesofTransaction.purchase,
+                Bookname = bookname,
+                Quantity = qty,
+                updatedQuantity = book.Quantity,
+                bookid = book.BookId,
+            };
+            db.booktransactions.Add(booktransaction1);
+                db.SaveChanges();
+            }
 
 
             //public void PrintAllBooks()

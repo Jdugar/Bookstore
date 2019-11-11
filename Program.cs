@@ -14,17 +14,18 @@ namespace BookStorePOS
             {
 
                 Console.WriteLine("---------------------------");
-                Console.WriteLine("Enter A to Add new book to Inventory");
-                Console.WriteLine("Enter P to Print all books in inventory");
-                Console.WriteLine("Enter 3 to update book Inventory" );
-                Console.WriteLine("Enter 4 to selling Book");
-                Console.WriteLine("E. Exit");
+                Console.WriteLine("Enter 1 to Add new book to Inventory");
+                Console.WriteLine("Enter 2 to Print all books in inventory");
+                Console.WriteLine("Enter 3 to Add Book to Inventory" );
+                Console.WriteLine("Enter 4 to Sell Book");
+                Console.WriteLine("Enter 5 to Exit");
                 Console.WriteLine("----------------------------");
                 var input = Console.ReadLine();
                 switch (input)
                 {
-                    case "A":
-                        Console.Write("Adding new book");
+                    case "1":
+                        Console.Writeline("Adding new book");
+                        Console.WriteLine("---------------------");
                         Console.Write("Enter Book Name:");
                         var bookname = Console.ReadLine();
                         Console.Write("Enter Author Name:");
@@ -40,25 +41,33 @@ namespace BookStorePOS
                         var quantity = Convert.ToInt32(Console.ReadLine());
                         Console.Write("Price per unit:");
                         var unitprice = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("ISBN No:");
+                        var isbnno = Convert.ToInt32(Console.ReadLine());
                                     
 
-                        BookStore.AddNewBook(bookname, author, quantity,unitprice, genre);
-                        
-
-
+                        BookStore.AddNewBook(bookname, author, quantity,unitprice, genre, isbnno);
+                          break;
+                    case "2":
+                        BookStore.PrintAllBooks();
                         break;
                     case "3":
                         Console.Write("Enter the Book name to update the Inventory:");
                         var book = Console.ReadLine();
                         Console.Write("enter the qty:");
                         var qty = Convert.ToInt32(Console.ReadLine());
-                        BookStore.updateInventory(book,qty);
+                        BookStore.AddInventory(book,qty);
                         Console.Write("Book Inventory updated!");
                         break;
-                    case "P":
-                        BookStore.PrintAllBooks();
+                    case "4":
+                        Console.Write("Enter the Book name to Sell:");
+                        book = Console.ReadLine();
+                        Console.Write("enter the qty:");
+                        qty = Convert.ToInt32(Console.ReadLine());
+                        BookStore.Booksold(book, qty);
+                        Console.Write("Book Inventory updated!");
                         break;
-                    case "E":
+
+                    case "5":
                         Console.WriteLine("Exiting Program");
                         return;
                     default:
